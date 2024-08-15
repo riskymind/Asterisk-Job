@@ -2,7 +2,8 @@ import {
   Route,
   createBrowserRouter,
   createRoutesFromElements,
-  RouterProvider
+  RouterProvider,
+  json
 } from 'react-router-dom'
 
 import React from 'react'
@@ -22,11 +23,29 @@ const App = () => {
       const res = await fetch("/api/jobs", {
         method: "POST",
         headers: {
-          "Content-type": "application/json"
+          "Content-Type": "application/json"
         },
         body: JSON.stringify(newJob)
       });
       return
+  }
+// Delete JOB
+  const deleteJob = async(id) => {
+    const res = await fetch(`/api/jobs/${id}`, {
+      method: "DELETE"
+    })
+    return
+  }
+
+  // Update JOB
+  const updateJob = async(job) => {
+    const res = await fetch(`/api/jobs/${job.id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(job)
+    })
   }
 
   const router = createBrowserRouter(
@@ -34,9 +53,9 @@ const App = () => {
       <Route path='/' element={<MainLayout/>}>
         <Route index element={<HomePage/>} />
         <Route path='/jobs' element={<JobsPage/>} />
-        <Route path='/jobs/:id' element={<JobPage/>} loader={jobLoadder} />
+        <Route path='/jobs/:id' element={<JobPage deleteJob={deleteJob}/>} loader={jobLoadder} />
         <Route path='/add-job' element={<AddJobPage addJobSubmit={addJob}/>} />
-        <Route path='/edit-job/:id' element={<EditJobPage/>} />
+        <Route path='/edit-job/:id' element={<EditJobPage  updateJobSubmit={updateJob}/>}  loader={jobLoadder}/>
         <Route path='*' element={<NotFoundPage />} />
       </Route>
     )
