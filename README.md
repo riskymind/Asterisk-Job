@@ -1,4 +1,4 @@
-# React Jobs Project (YouTube)
+# React Jobs Listing Project 
 
 This is the jobs listing project
 
