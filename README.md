@@ -14,12 +14,12 @@ This project uses JSON-Server for a mock backend.
 npm install
 ```
 
-<!-- ### Run JSON Server
+### Run JSON Server
 
 The server will run on http://localhost:8000
 
 ```bash
-npm run server -->
+npm run server
 ```
 
 ### Run Vite Frontend
